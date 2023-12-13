@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // pages
-import { Home, Error, Archieve, Detail, New } from "./pages";
+import { Home, Error, Archieved, Detail, New } from "./pages";
 
 // css
 import "./assets/css/tailwind.css";
@@ -17,8 +17,8 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/archieve",
-    element: <Archieve />,
+    path: "/archieved",
+    element: <Archieved />,
     errorElement: <Error />,
   },
   {
@@ -34,7 +34,5 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
   <RouterProvider router={router} />
-  // </React.StrictMode>
 );

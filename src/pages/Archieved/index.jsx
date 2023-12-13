@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { FiPlusCircle } from "react-icons/fi";
 import { NoteLayout, Header, Input } from "../../components";
-import { filteredNote, getActiveNotes } from "../../utils";
+import { filteredNote, getArchievedNotes } from "../../utils/local-data";
 import { useSearchParams } from "react-router-dom";
 
-export const Home = () => {
+export const Archieved = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchValue = searchParams.get("keyword") || "";
 
@@ -15,7 +15,7 @@ export const Home = () => {
         <section className="mt-10">
           <div className="container mx-auto">
             <h1 className="text-3xl mb-3 text-center text-gray-900 font-medium">
-              Catatan Aktif
+              Catatan Arsip
             </h1>
             <div className="w-full mb-5">
               <Input
@@ -27,7 +27,7 @@ export const Home = () => {
                 }
               />
             </div>
-            <NoteLayout data={filteredNote(searchValue, getActiveNotes())} />
+            <NoteLayout data={filteredNote(searchValue, getArchievedNotes())} />
           </div>
         </section>
       </main>

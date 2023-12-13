@@ -7,5 +7,15 @@
 }
 
 .card {
-  @apply lg:w-[calc(25%_-_1rem)] md:w-[calc(50%_-_1rem)] w-full space-y-3 p-3 rounded-lg mb-4 shadow-sm border-2 flex flex-col justify-around;
+  @apply lg:w-[calc(25%_-_1rem)] md:w-[calc(50%_-_1rem)] w-full space-y-3 p-3 rounded-lg mb-4 shadow-sm flex flex-col justify-around;
+  border-width: 1px;
+}
+
+.bodyEditable {
+  @apply w-full min-h-[500px] border-black mt-10 p-3 text-xl;
+}
+
+[data-placeholder]:empty:before {
+  color: #c7c7c7;
+  content: attr(data-placeholder);
 }

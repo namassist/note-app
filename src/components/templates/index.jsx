@@ -1,3 +1,4 @@
+import { Layout } from "./Layout";
 import { NoteLayout } from "./NoteLayout";
 
-export { NoteLayout };
+export { Layout, NoteLayout };

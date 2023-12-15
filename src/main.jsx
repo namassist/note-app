@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import AppProvider from "./context/app-context";
 
 // router
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // pages
-import { Home, Error, Archieved, Detail, New } from "./pages";
+import { Login, Error, Notes, Archieved, Detail, New, Register } from "./pages";
 
 // css
 import "./assets/css/tailwind.css";
@@ -13,7 +14,17 @@ import "./assets/css/tailwind.css";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/notes",
+    element: <Notes />,
     errorElement: <Error />,
   },
   {
@@ -34,5 +45,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <AppProvider>
+    <RouterProvider router={router} />
+  </AppProvider>
 );

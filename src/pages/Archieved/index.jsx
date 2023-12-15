@@ -1,39 +1,68 @@
-import { Link } from "react-router-dom";
-import { FiPlusCircle } from "react-icons/fi";
-import { NoteLayout, Header, Input } from "../../components";
-import { filteredNote, getArchievedNotes } from "../../utils/local-data";
-import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppContext } from "../../context/app-context";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { NoteLayout, Input, Layout, Loader } from "../../components";
 
 export const Archieved = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchValue = searchParams.get("keyword") || "";
+  const {
+    accessToken,
+    notes,
+    setNotes,
+    theme,
+    language,
+    getArchivedNotes,
+    filteredNote,
+    isLoading,
+  } = useAppContext();
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/");
+    }
+
+    if (accessToken) {
+      getArchived();
+    }
+  }, []);
+
+  async function getArchived() {
+    const result = await getArchivedNotes();
+    setNotes(result?.data);
+  }
 
   return (
-    <>
-      <Header title="Notes App" />
-      <main className="py-5 bg-gray-50 space-y-3">
-        <section className="mt-10">
-          <div className="container mx-auto">
-            <h1 className="text-3xl mb-3 text-center text-gray-900 font-medium">
-              Catatan Arsip
-            </h1>
-            <div className="w-full mb-5">
-              <Input
-                type="text"
-                placeholder="Cari catatan..."
-                value={searchValue}
-                onChange={(e) =>
-                  setSearchParams({ keyword: e.target.value }, "replace")
-                }
-              />
-            </div>
-            <NoteLayout data={filteredNote(searchValue, getArchievedNotes())} />
-          </div>
-        </section>
-      </main>
-      <Link to="/notes/new" className="absolute bottom-10 right-10">
-        <FiPlusCircle size={40} />
-      </Link>
-    </>
+    <Layout>
+      <section className="mt-10">
+        <h1
+          className={`text-3xl mb-3 text-center font-medium ${
+            theme === "dark" ? "text-gray-50" : "text-black"
+          }`}
+        >
+          {language === "id" ? "Catatan Arsip" : "Archive Notes"}
+        </h1>
+        <div className="w-full mb-5">
+          <Input
+            type="text"
+            placeholder={
+              language === "id"
+                ? "Cari berdasarkan judul..."
+                : "Search by title..."
+            }
+            value={searchValue}
+            onChange={(e) =>
+              setSearchParams({ keyword: e.target.value }, "replace")
+            }
+          />
+        </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <NoteLayout data={filteredNote(searchValue, notes)} />
+        )}
+      </section>
+    </Layout>
   );
 };

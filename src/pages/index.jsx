@@ -1,6 +1,9 @@
-import { Home } from "./Home";
 import { Error } from "./Error";
 import { Archieved } from "./Archieved";
-import { Detail, New } from "./Notes";
+import { Register } from "./Register";
+import { Login } from "./Login";
+import { Detail } from "./Detail";
+import { New } from "./New";
+import { Notes } from "./Notes";
 
-export { Home, Error, Archieved, Detail, New };
+export { Error, Archieved, Detail, New, Register, Login, Notes };
